@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Button, Typography, Box, TextField, Paper } from '@mui/material';
+import { Helmet } from 'react-helmet';
 
-const LearnTurkish = () => {
+const LearnPlurals = () => {
   const [sentence, setSentence] = useState('');
   const [result, setResult] = useState('');
   const [optionsVisible, setOptionsVisible] = useState(false);
@@ -36,6 +37,9 @@ const LearnTurkish = () => {
 
   return (
     <Container maxWidth="sm">
+      <Helmet>
+        <title>Learn Turkish Plurals</title>
+      </Helmet>
       <Paper elevation={3} sx={{ padding: 4, marginTop: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Learn Turkish: Plurals
@@ -68,4 +72,4 @@ const LearnTurkish = () => {
   );
 };
 
-export default LearnTurkish;
+export default LearnPlurals;

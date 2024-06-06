@@ -1,12 +1,12 @@
 // src/App.js
 import React from 'react';
-import LearnTurkish from './components/LearnTurkish';
 import './App.css';
+import LearnPlurals from './components/LearnPlurals';
 
 function App() {
   return (
     <div className="App">
-      <LearnTurkish />
+      <LearnPlurals />
     </div>
   );
 }
