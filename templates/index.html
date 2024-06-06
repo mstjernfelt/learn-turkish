@@ -19,6 +19,10 @@
         .options {
             margin: 20px 0;
         }
+        .result {
+            margin: 20px 0;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -46,10 +50,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            let currentSentence = '';
             let responseData = {}; // Declare a global variable to hold the data
 
-            $('#generateBtn').click(function() {
+            function generateSentence() {
                 $.ajax({
                     url: '/generate_sentence',
                     type: 'POST',
@@ -57,38 +60,56 @@
                     data: JSON.stringify({ lesson: 'plurals' }),
                     success: function(data) {
                         responseData = data; // Assign the received data to the global variable
-
-                        console.log(responseData);
-
                         $('#sentence').text(responseData.turkish + ' (' + responseData.english + ')');
                         $('#options').show();
+                        $('#result').text(''); // Clear previous result
                     }
                 });
+            }
+
+            // Generate a sentence when the page loads
+            generateSentence();
+
+            $('#generateBtn').click(function() {
+                generateSentence();
             });
 
             $('#larBtn').click(function() {
                 $('#options').hide();
-                // Use responseData if needed
+
+                console.log('lar: ' + responseData.suffix);
 
                 if (responseData.suffix === 'lar') {
                     $('#result').text('Correct!');
                 } else {
-                    $('#result').text('Incorrect!, correct answer is ' + responseData.turkish + 'lar');
+                    $('#result').text('Incorrect! The correct answer is ' + responseData.turkish + 'lar');
                 }
-
-                console.log(responseData);
             });
 
             $('#lerBtn').click(function() {
                 $('#options').hide();
-                // Use responseData if needed
+
+                console.log('ler: ' + responseData.suffix);
 
                 if (responseData.suffix === 'ler') {
                     $('#result').text('Correct!');
                 } else {
-                    $('#result').text('Incorrect!, correct answer is ' + responseData.turkish + 'ler');
+                    $('#result').text('Incorrect! The correct answer is ' + responseData.turkish + 'ler');
                 }
+            });
 
+            $('#progressForm').submit(function(e) {
+                e.preventDefault();
+                const progress = $('#progress').val();
+                $.ajax({
+                    url: '/update_progress',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ lesson: 'plurals', progress: progress }),
+                    success: function(data) {
+                        alert(data.message);
+                    }
+                });
             });
         });
     </script>
