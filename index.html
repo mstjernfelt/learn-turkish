@@ -1,0 +1,58 @@
+<!-- index.html remains unchanged -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Turkish</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .sentence {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Learn Turkish: Plurals</h1>
+        <div>
+            <button id="generateBtn">Generate Sentence</button>
+            <div class="sentence" id="sentence"></div>
+        </div>
+        <div>
+            <h2>Progress</h2>
+            <form id="progressForm">
+                <label for="progress">Progress:</label>
+                <input type="number" id="progress" name="progress" min="0" max="100">
+                <button type="submit">Update Progress</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#generateBtn').click(function() {
+                $.post('/generate_sentence', { lesson: 'plurals' }, function(data) {
+                    $('#sentence').text(data.sentence);
+                });
+            });
+
+            $('#progressForm').submit(function(e) {
+                e.preventDefault();
+                const progress = $('#progress').val();
+                $.post('/update_progress', { lesson: 'plurals', progress: progress }, function(data) {
+                    alert(data.message);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
