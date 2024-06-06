@@ -1,4 +1,3 @@
-<!-- index.html remains unchanged -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +16,9 @@
         .sentence {
             margin: 20px 0;
         }
+        .options {
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -25,6 +27,10 @@
         <div>
             <button id="generateBtn">Generate Sentence</button>
             <div class="sentence" id="sentence"></div>
+        </div>
+        <div class="options" id="options" style="display: none;">
+            <button id="larBtn">lar</button>
+            <button id="lerBtn">ler</button>
         </div>
         <div>
             <h2>Progress</h2>
@@ -39,17 +45,43 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
+            let currentSentence = '';
+
             $('#generateBtn').click(function() {
-                $.post('/generate_sentence', { lesson: 'plurals' }, function(data) {
-                    $('#sentence').text(data.sentence);
+                $.ajax({
+                    url: '/generate_sentence',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ lesson: 'plurals' }),
+                    success: function(data) {
+                        $('#sentence').text(data.turkish + ' (' + data.english + ')');
+                        currentSentence = data.turkish;
+                        $('#options').show();
+                    }
                 });
+            });
+
+            $('#larBtn').click(function() {
+                $('#sentence').append('lar');
+                $('#options').hide();
+            });
+
+            $('#lerBtn').click(function() {
+                $('#sentence').append('ler');
+                $('#options').hide();
             });
 
             $('#progressForm').submit(function(e) {
                 e.preventDefault();
                 const progress = $('#progress').val();
-                $.post('/update_progress', { lesson: 'plurals', progress: progress }, function(data) {
-                    alert(data.message);
+                $.ajax({
+                    url: '/update_progress',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ lesson: 'plurals', progress: progress }),
+                    success: function(data) {
+                        alert(data.message);
+                    }
                 });
             });
         });
