@@ -27,6 +27,7 @@
         <div>
             <button id="generateBtn">Generate Sentence</button>
             <div class="sentence" id="sentence"></div>
+            <div class="result" id="result"></div>
         </div>
         <div class="options" id="options" style="display: none;">
             <button id="larBtn">lar</button>
@@ -46,6 +47,7 @@
     <script>
         $(document).ready(function() {
             let currentSentence = '';
+            let responseData = {}; // Declare a global variable to hold the data
 
             $('#generateBtn').click(function() {
                 $.ajax({
@@ -54,35 +56,39 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ lesson: 'plurals' }),
                     success: function(data) {
-                        $('#sentence').text(data.turkish + ' (' + data.english + ')');
-                        currentSentence = data.turkish;
+                        responseData = data; // Assign the received data to the global variable
+
+                        console.log(responseData);
+
+                        $('#sentence').text(responseData.turkish + ' (' + responseData.english + ')');
                         $('#options').show();
                     }
                 });
             });
 
             $('#larBtn').click(function() {
-                $('#sentence').append('lar');
                 $('#options').hide();
+                // Use responseData if needed
+
+                if (responseData.suffix === 'lar') {
+                    $('#result').text('Correct!');
+                } else {
+                    $('#result').text('Incorrect!, correct answer is ' + responseData.turkish + 'lar');
+                }
+
+                console.log(responseData);
             });
 
             $('#lerBtn').click(function() {
-                $('#sentence').append('ler');
                 $('#options').hide();
-            });
+                // Use responseData if needed
 
-            $('#progressForm').submit(function(e) {
-                e.preventDefault();
-                const progress = $('#progress').val();
-                $.ajax({
-                    url: '/update_progress',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ lesson: 'plurals', progress: progress }),
-                    success: function(data) {
-                        alert(data.message);
-                    }
-                });
+                if (responseData.suffix === 'ler') {
+                    $('#result').text('Correct!');
+                } else {
+                    $('#result').text('Incorrect!, correct answer is ' + responseData.turkish + 'ler');
+                }
+
             });
         });
     </script>
