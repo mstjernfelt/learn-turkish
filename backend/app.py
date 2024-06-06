@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify, render_template
+from flask_cors import CORS
 from openai import OpenAI
 import os
 import json
 from dotenv import load_dotenv
 import json_storage
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
+CORS(app)  # Add this line to enable CORS for all routes
 
 # Load environment variables from .env file
 load_dotenv()
@@ -38,10 +40,6 @@ def generate_unique_prompt(lesson):
     
     return prompt
 
-@app.route('/')
-def home():
-    return render_template('index.html')
-
 @app.route('/generate_sentence', methods=['POST'])
 def generate_sentence():
     data = request.json
@@ -57,7 +55,7 @@ def generate_sentence():
         temperature=0.7,
         max_tokens=150
     )
-    sentence_str = response.choices[0].message['content'].strip()
+    sentence_str = response.choices[0].message.content.strip()
 
     # Convert the string to JSON
     sentence_json = json.loads(sentence_str)
@@ -65,15 +63,6 @@ def generate_sentence():
     # Save the sentence to the JSON file
     json_storage.write_sentence(lesson, sentence_json)
     return jsonify(sentence_json)
-
-@app.route('/update_progress', methods=['POST'])
-def update_progress():
-    data = request.json
-    lesson = data['lesson']
-    progress = data['progress']
-
-    json_storage.write_progress(lesson, progress)
-    return jsonify({'message': 'Progress updated'})
 
 if __name__ == '__main__':
     app.run(debug=True)
