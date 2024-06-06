@@ -19,7 +19,7 @@ json_storage.initialize_files()
 def generate_sentence():
     data = request.json
     lesson = data['lesson']
-    prompt = f"Generate a Turkish sentence for the lesson: {lesson}"
+    prompt = f"Generate a Turkish subject and provide its English translation. return the sentence in a json format."
 
     response = client.chat.completions.create(model="gpt-3.5-turbo",
     messages=[
