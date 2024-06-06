@@ -1,4 +1,3 @@
-# json_storage.py
 import json
 from pathlib import Path
 
@@ -32,6 +31,7 @@ def read_sentences():
 
 def write_sentence(lesson, sentence):
     data = read_sentences()
-    data.append({'lesson': lesson, 'sentence': sentence})
+    sentence['lesson'] = lesson
+    data.append(sentence)
     with open(SENTENCES_FILE, 'w') as file:
         json.dump(data, file)

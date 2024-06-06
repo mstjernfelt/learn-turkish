@@ -16,6 +16,28 @@ client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 # Initialize JSON files
 json_storage.initialize_files()
 
+def generate_unique_prompt(lesson):
+    previous_sentences = json_storage.read_sentences()
+    if previous_sentences:
+        used_turkish_subjects = [entry['turkish'] for entry in previous_sentences if entry['lesson'] == lesson]
+    else:
+        used_turkish_subjects = []
+
+    if used_turkish_subjects:
+        used_subjects_str = ', '.join(used_turkish_subjects)
+        prompt = (f"Generate a Turkish subject and provide its English translation. "
+                  f"Ensure it is not one of the following: {used_subjects_str}. "
+                  f"Return the sentence in a JSON format. Also return the Turkish word's plural suffix. "
+                  f"JSON should be in the format: 'turkish': '...', 'english': '...', 'suffix': '...'. "
+                  f"Provide unique and varied examples each time.")
+    else:
+        prompt = (f"Generate a Turkish subject and provide its English translation. "
+                  f"Return the sentence in a JSON format. Also return the Turkish word's plural suffix. "
+                  f"JSON should be in the format: 'turkish': '...', 'english': '...', 'suffix': '...'. "
+                  f"Provide unique and varied examples each time.")
+    
+    return prompt
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -24,16 +46,18 @@ def home():
 def generate_sentence():
     data = request.json
     lesson = data['lesson']
-    prompt = f"Generate a Turkish subject and provide its English translation. Return the sentence in a JSON format. Also return the turkish words plural sufix. Json should be in the format: 'turkish': '...', 'english': '...', 'suffix': '...'"
+    prompt = generate_unique_prompt(lesson)
 
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant while I am learning Turkish."},
             {"role": "user", "content": prompt}
-        ]
+        ],
+        temperature=0.7,
+        max_tokens=150
     )
-    sentence_str = response.choices[0].message.content.strip()
+    sentence_str = response.choices[0].message['content'].strip()
 
     # Convert the string to JSON
     sentence_json = json.loads(sentence_str)

@@ -80,9 +80,9 @@
                 console.log('lar: ' + responseData.suffix);
 
                 if (responseData.suffix === 'lar') {
-                    $('#result').text('Correct!');
+                    $('#result').text('Correct! The answer is ' + responseData.turkish + responseData.suffix + ' (' + responseData.english + ')');
                 } else {
-                    $('#result').text('Incorrect! The correct answer is ' + responseData.turkish + 'lar');
+                    $('#result').text('Incorrect! The correct answer is ' + responseData.turkish + responseData.suffix);
                 }
             });
 
@@ -92,24 +92,10 @@
                 console.log('ler: ' + responseData.suffix);
 
                 if (responseData.suffix === 'ler') {
-                    $('#result').text('Correct!');
+                    $('#result').text('Correct! The answer is ' + responseData.turkish + responseData.suffix + ' (' + responseData.english + ')');
                 } else {
-                    $('#result').text('Incorrect! The correct answer is ' + responseData.turkish + 'ler');
+                    $('#result').text('Incorrect! The correct answer is ' + responseData.turkish + responseData.suffix);
                 }
-            });
-
-            $('#progressForm').submit(function(e) {
-                e.preventDefault();
-                const progress = $('#progress').val();
-                $.ajax({
-                    url: '/update_progress',
-                    type: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({ lesson: 'plurals', progress: progress }),
-                    success: function(data) {
-                        alert(data.message);
-                    }
-                });
             });
         });
     </script>
