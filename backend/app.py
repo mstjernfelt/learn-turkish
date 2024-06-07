@@ -14,11 +14,8 @@ load_dotenv()
 # Initialize OpenAI client with the API key
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
-# Initialize in-memory storage for the current session
-session_sentences = []
-
-def generate_unique_prompt():
-    used_turkish_subjects = [entry['turkish'] for entry in session_sentences]
+def generate_unique_prompt(previous_sentences):
+    used_turkish_subjects = [entry['turkish'] for entry in previous_sentences]
 
     if used_turkish_subjects:
         used_subjects_str = ', '.join(used_turkish_subjects)
@@ -39,7 +36,8 @@ def generate_unique_prompt():
 def generate_sentence():
     data = request.json
     lesson = data['lesson']
-    prompt = generate_unique_prompt()
+    previous_sentences = data.get('previousSentences', [])
+    prompt = generate_unique_prompt(previous_sentences)
 
     response = client.chat.completions.create(
         model="gpt-3.5-turbo",
@@ -58,8 +56,6 @@ def generate_sentence():
     # Convert the string to JSON
     sentence_json = json.loads(sentence_str)
 
-    # Save the sentence to the in-memory session storage
-    session_sentences.append({'lesson': lesson, **sentence_json})
     return jsonify(sentence_json)
 
 if __name__ == '__main__':

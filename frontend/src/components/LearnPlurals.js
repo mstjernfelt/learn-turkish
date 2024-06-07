@@ -16,12 +16,18 @@ const LearnPlurals = () => {
 
   const generateSentence = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/generate_sentence`, { lesson: 'plurals' });
-      setResponseData(response.data);
-      setSentence(`${response.data.turkish} (${response.data.english})`);
+      const previousSentences = JSON.parse(sessionStorage.getItem('previousSentences')) || [];
+      const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/generate_sentence`, { lesson: 'plurals', previousSentences });
+      const newSentence = response.data;
+      setResponseData(newSentence);
+      setSentence(`${newSentence.turkish} (${newSentence.english})`);
       setOptionsVisible(true);
       setResult('');
       handleClose(); // Close the hint popover when a new sentence is generated
+
+      // Save the new sentence to session storage
+      previousSentences.push(newSentence);
+      sessionStorage.setItem('previousSentences', JSON.stringify(previousSentences));
     } catch (error) {
       console.error('Error generating sentence:', error);
     }
@@ -29,10 +35,10 @@ const LearnPlurals = () => {
 
   const handleOptionClick = (suffix) => {
     setOptionsVisible(false);
-    if (responseData.suffix.includes(suffix)) {
-      setResult(`Correct! The answer is ${responseData.turkish}${responseData.suffix} (${responseData.english})`);
+    if (responseData.turkishsuffix === suffix) {
+      setResult(`Correct! The answer is ${responseData.turkish}${responseData.turkishsuffix} (${responseData.english})`);
     } else {
-      setResult(`Incorrect! The correct answer is ${responseData.turkish}${responseData.suffix}`);
+      setResult(`Incorrect! The correct answer is ${responseData.turkish}${responseData.turkishsuffix}`);
     }
   };
 
