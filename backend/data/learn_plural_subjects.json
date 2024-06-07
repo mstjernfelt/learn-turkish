@@ -1,0 +1,604 @@
+{
+    "data": [
+        {
+            "turkish": "kitap",
+            "english": "book",
+            "turkishsuffix": "kitaplar",
+            "englishplural": "books"
+        },
+        {
+            "turkish": "ev",
+            "english": "house",
+            "turkishsuffix": "evler",
+            "englishplural": "houses"
+        },
+        {
+            "turkish": "kalem",
+            "english": "pen",
+            "turkishsuffix": "kalemler",
+            "englishplural": "pens"
+        },
+        {
+            "turkish": "masa",
+            "english": "table",
+            "turkishsuffix": "masalar",
+            "englishplural": "tables"
+        },
+        {
+            "turkish": "araba",
+            "english": "car",
+            "turkishsuffix": "arabalar",
+            "englishplural": "cars"
+        },
+        {
+            "turkish": "telefon",
+            "english": "phone",
+            "turkishsuffix": "telefonlar",
+            "englishplural": "phones"
+        },
+        {
+            "turkish": "bilgisayar",
+            "english": "computer",
+            "turkishsuffix": "bilgisayarlar",
+            "englishplural": "computers"
+        },
+        {
+            "turkish": "kapı",
+            "english": "door",
+            "turkishsuffix": "kapılar",
+            "englishplural": "doors"
+        },
+        {
+            "turkish": "defter",
+            "english": "notebook",
+            "turkishsuffix": "defterler",
+            "englishplural": "notebooks"
+        },
+        {
+            "turkish": "çanta",
+            "english": "bag",
+            "turkishsuffix": "çantalar",
+            "englishplural": "bags"
+        },
+        {
+            "turkish": "çocuk",
+            "english": "child",
+            "turkishsuffix": "çocuklar",
+            "englishplural": "children"
+        },
+        {
+            "turkish": "öğrenci",
+            "english": "student",
+            "turkishsuffix": "öğrenciler",
+            "englishplural": "students"
+        },
+        {
+            "turkish": "domates",
+            "english": "tomato",
+            "turkishsuffix": "domatesler",
+            "englishplural": "tomatoes"
+        },
+        {
+            "turkish": "pencere",
+            "english": "window",
+            "turkishsuffix": "pencereler",
+            "englishplural": "windows"
+        },
+        {
+            "turkish": "sandalye",
+            "english": "chair",
+            "turkishsuffix": "sandalyeler",
+            "englishplural": "chairs"
+        },
+        {
+            "turkish": "üşümek",
+            "english": "to feel cold",
+            "turkishsuffix": "üşümekler",
+            "englishplural": "to feel cold"
+        },
+        {
+            "turkish": "yatak",
+            "english": "bed",
+            "turkishsuffix": "yataklar",
+            "englishplural": "beds"
+        },
+        {
+            "turkish": "elma",
+            "english": "apple",
+            "turkishsuffix": "elmalar",
+            "englishplural": "apples"
+        },
+        {
+            "turkish": "elbise",
+            "english": "dress",
+            "turkishsuffix": "elbiselar",
+            "englishplural": "dresses"
+        },
+        {
+            "turkish": "uçak",
+            "english": "airplane",
+            "turkishsuffix": "uçaklar",
+            "englishplural": "airplanes"
+        },
+        {
+            "turkish": "köpek",
+            "english": "dog",
+            "turkishsuffix": "köpekler",
+            "englishplural": "dogs"
+        },
+        {
+            "turkish": "kedi",
+            "english": "cat",
+            "turkishsuffix": "kediler",
+            "englishplural": "cats"
+        },
+        {
+            "turkish": "ağaç",
+            "english": "tree",
+            "turkishsuffix": "ağaçlar",
+            "englishplural": "trees"
+        },
+        {
+            "turkish": "kuş",
+            "english": "bird",
+            "turkishsuffix": "kuşlar",
+            "englishplural": "birds"
+        },
+        {
+            "turkish": "buzdolabı",
+            "english": "refrigerator",
+            "turkishsuffix": "buzdolaplar",
+            "englishplural": "refrigerators"
+        },
+        {
+            "turkish": "havlu",
+            "english": "towel",
+            "turkishsuffix": "havlular",
+            "englishplural": "towels"
+        },
+        {
+            "turkish": "tencere",
+            "english": "pot",
+            "turkishsuffix": "tencereler",
+            "englishplural": "pots"
+        },
+        {
+            "turkish": "tabak",
+            "english": "plate",
+            "turkishsuffix": "tabaklar",
+            "englishplural": "plates"
+        },
+        {
+            "turkish": "çatal",
+            "english": "fork",
+            "turkishsuffix": "çatallar",
+            "englishplural": "forks"
+        },
+        {
+            "turkish": "kaşık",
+            "english": "spoon",
+            "turkishsuffix": "kaşıklar",
+            "englishplural": "spoons"
+        },
+        {
+            "turkish": "gözlük",
+            "english": "glasses",
+            "turkishsuffix": "gözlükler",
+            "englishplural": "glasses"
+        },
+        {
+            "turkish": "eldiven",
+            "english": "glove",
+            "turkishsuffix": "eldivenler",
+            "englishplural": "gloves"
+        },
+        {
+            "turkish": "şapka",
+            "english": "hat",
+            "turkishsuffix": "şapkalar",
+            "englishplural": "hats"
+        },
+        {
+            "turkish": "kemer",
+            "english": "belt",
+            "turkishsuffix": "kemerler",
+            "englishplural": "belts"
+        },
+        {
+            "turkish": "çorap",
+            "english": "sock",
+            "turkishsuffix": "çoraplar",
+            "englishplural": "socks"
+        },
+        {
+            "turkish": "ayakkabı",
+            "english": "shoe",
+            "turkishsuffix": "ayakkabılar",
+            "englishplural": "shoes"
+        },
+        {
+            "turkish": "pantolon",
+            "english": "trouser",
+            "turkishsuffix": "pantolonlar",
+            "englishplural": "trousers"
+        },
+        {
+            "turkish": "cüzdan",
+            "english": "wallet",
+            "turkishsuffix": "cüzdanlar",
+            "englishplural": "wallets"
+        },
+        {
+            "turkish": "anahtar",
+            "english": "key",
+            "turkishsuffix": "anahtarlar",
+            "englishplural": "keys"
+        },
+        {
+            "turkish": "kanepe",
+            "english": "sofa",
+            "turkishsuffix": "kanepeler",
+            "englishplural": "sofas"
+        },
+        {
+            "turkish": "yastık",
+            "english": "pillow",
+            "turkishsuffix": "yastıklar",
+            "englishplural": "pillows"
+        },
+        {
+            "turkish": "battaniye",
+            "english": "blanket",
+            "turkishsuffix": "battaniyeler",
+            "englishplural": "blankets"
+        },
+        {
+            "turkish": "lamba",
+            "english": "lamp",
+            "turkishsuffix": "lambalar",
+            "englishplural": "lamps"
+        },
+        {
+            "turkish": "halı",
+            "english": "carpet",
+            "turkishsuffix": "halılar",
+            "englishplural": "carpets"
+        },
+        {
+            "turkish": "duvar",
+            "english": "wall",
+            "turkishsuffix": "duvarlar",
+            "englishplural": "walls"
+        },
+        {
+            "turkish": "resim",
+            "english": "picture",
+            "turkishsuffix": "resimler",
+            "englishplural": "pictures"
+        },
+        {
+            "turkish": "kumanda",
+            "english": "remote",
+            "turkishsuffix": "kumandalar",
+            "englishplural": "remotes"
+        },
+        {
+            "turkish": "televizyon",
+            "english": "television",
+            "turkishsuffix": "televizyonlar",
+            "englishplural": "televisions"
+        },
+        {
+            "turkish": "kum",
+            "english": "sand",
+            "turkishsuffix": "kumlar",
+            "englishplural": "sands"
+        },
+        {
+            "turkish": "deniz",
+            "english": "sea",
+            "turkishsuffix": "denizler",
+            "englishplural": "seas"
+        },
+        {
+            "turkish": "nehir",
+            "english": "river",
+            "turkishsuffix": "nehirler",
+            "englishplural": "rivers"
+        },
+        {
+            "turkish": "göl",
+            "english": "lake",
+            "turkishsuffix": "göller",
+            "englishplural": "lakes"
+        },
+        {
+            "turkish": "balık",
+            "english": "fish",
+            "turkishsuffix": "balıklar",
+            "englishplural": "fishes"
+        },
+        {
+            "turkish": "ördek",
+            "english": "duck",
+            "turkishsuffix": "ördekler",
+            "englishplural": "ducks"
+        },
+        {
+            "turkish": "gökyüzü",
+            "english": "sky",
+            "turkishsuffix": "gökyüzler",
+            "englishplural": "skies"
+        },
+        {
+            "turkish": "yıldız",
+            "english": "star",
+            "turkishsuffix": "yıldızlar",
+            "englishplural": "stars"
+        },
+        {
+            "turkish": "gezegen",
+            "english": "planet",
+            "turkishsuffix": "gezegenler",
+            "englishplural": "planets"
+        },
+        {
+            "turkish": "uzay",
+            "english": "space",
+            "turkishsuffix": "uzaylar",
+            "englishplural": "spaces"
+        },
+        {
+            "turkish": "güneş",
+            "english": "sun",
+            "turkishsuffix": "güneşler",
+            "englishplural": "suns"
+        },
+        {
+            "turkish": "ay",
+            "english": "moon",
+            "turkishsuffix": "aylar",
+            "englishplural": "moons"
+        },
+        {
+            "turkish": "bulut",
+            "english": "cloud",
+            "turkishsuffix": "bulutlar",
+            "englishplural": "clouds"
+        },
+        {
+            "turkish": "yağmur",
+            "english": "rain",
+            "turkishsuffix": "yağmurlar",
+            "englishplural": "rains"
+        },
+        {
+            "turkish": "kar",
+            "english": "snow",
+            "turkishsuffix": "karlar",
+            "englishplural": "snows"
+        },
+        {
+            "turkish": "fırtına",
+            "english": "storm",
+            "turkishsuffix": "fırtınalar",
+            "englishplural": "storms"
+        },
+        {
+            "turkish": "rüzgar",
+            "english": "wind",
+            "turkishsuffix": "rüzgarlar",
+            "englishplural": "winds"
+        },
+        {
+            "turkish": "dağ",
+            "english": "mountain",
+            "turkishsuffix": "dağlar",
+            "englishplural": "mountains"
+        },
+        {
+            "turkish": "tepe",
+            "english": "hill",
+            "turkishsuffix": "tepeler",
+            "englishplural": "hills"
+        },
+        {
+            "turkish": "ova",
+            "english": "plain",
+            "turkishsuffix": "ovalar",
+            "englishplural": "plains"
+        },
+        {
+            "turkish": "mağara",
+            "english": "cave",
+            "turkishsuffix": "mağaralar",
+            "englishplural": "caves"
+        },
+        {
+            "turkish": "orman",
+            "english": "forest",
+            "turkishsuffix": "ormanlar",
+            "englishplural": "forests"
+        },
+        {
+            "turkish": "tarla",
+            "english": "farm",
+            "turkishsuffix": "tarlalar",
+            "englishplural": "farms"
+        },
+        {
+            "turkish": "bahçe",
+            "english": "garden",
+            "turkishsuffix": "bahçeler",
+            "englishplural": "gardens"
+        },
+        {
+            "turkish": "çiçek",
+            "english": "flower",
+            "turkishsuffix": "çiçekler",
+            "englishplural": "flowers"
+        },
+        {
+            "turkish": "böcek",
+            "english": "insect",
+            "turkishsuffix": "böcekler",
+            "englishplural": "insects"
+        },
+        {
+            "turkish": "kelebek",
+            "english": "butterfly",
+            "turkishsuffix": "kelebekler",
+            "englishplural": "butterflies"
+        },
+        {
+            "turkish": "arı",
+            "english": "bee",
+            "turkishsuffix": "arılar",
+            "englishplural": "bees"
+        },
+        {
+            "turkish": "karınca",
+            "english": "ant",
+            "turkishsuffix": "karıncalar",
+            "englishplural": "ants"
+        },
+        {
+            "turkish": "sinema",
+            "english": "cinema",
+            "turkishsuffix": "sinemalar",
+            "englishplural": "cinemas"
+        },
+        {
+            "turkish": "tiyatro",
+            "english": "theater",
+            "turkishsuffix": "tiyatrolar",
+            "englishplural": "theaters"
+        },
+        {
+            "turkish": "muz",
+            "english": "banana",
+            "turkishsuffix": "muzlar",
+            "englishplural": "bananas"
+        },
+        {
+            "turkish": "portakal",
+            "english": "orange",
+            "turkishsuffix": "portakallar",
+            "englishplural": "oranges"
+        },
+        {
+            "turkish": "çilek",
+            "english": "strawberry",
+            "turkishsuffix": "çilekler",
+            "englishplural": "strawberries"
+        },
+        {
+            "turkish": "üzüm",
+            "english": "grape",
+            "turkishsuffix": "üzümler",
+            "englishplural": "grapes"
+        },
+        {
+            "turkish": "karpuz",
+            "english": "watermelon",
+            "turkishsuffix": "karpuzlar",
+            "englishplural": "watermelons"
+        },
+        {
+            "turkish": "kayısı",
+            "english": "apricot",
+            "turkishsuffix": "kayısılar",
+            "englishplural": "apricots"
+        },
+        {
+            "turkish": "şeftali",
+            "english": "peach",
+            "turkishsuffix": "şeftaliler",
+            "englishplural": "peaches"
+        },
+        {
+            "turkish": "ananas",
+            "english": "pineapple",
+            "turkishsuffix": "ananaslar",
+            "englishplural": "pineapples"
+        },
+        {
+            "turkish": "çikolata",
+            "english": "chocolate",
+            "turkishsuffix": "çikolatalar",
+            "englishplural": "chocolates"
+        },
+        {
+            "turkish": "şeker",
+            "english": "sugar",
+            "turkishsuffix": "şekerler",
+            "englishplural": "sugars"
+        },
+        {
+            "turkish": "yatak",
+            "english": "bed",
+            "turkishsuffix": "yataklar",
+            "englishplural": "beds"
+        },
+        {
+            "turkish": "havuz",
+            "english": "pool",
+            "turkishsuffix": "havuzlar",
+            "englishplural": "pools"
+        },
+        {
+            "turkish": "sokak",
+            "english": "street",
+            "turkishsuffix": "sokaklar",
+            "englishplural": "streets"
+        },
+        {
+            "turkish": "cami",
+            "english": "mosque",
+            "turkishsuffix": "camiler",
+            "englishplural": "mosques"
+        },
+        {
+            "turkish": "kilise",
+            "english": "church",
+            "turkishsuffix": "kiliseler",
+            "englishplural": "churches"
+        },
+        {
+            "turkish": "okul",
+            "english": "school",
+            "turkishsuffix": "okullar",
+            "englishplural": "schools"
+        },
+        {
+            "turkish": "üniversite",
+            "english": "university",
+            "turkishsuffix": "üniversiteler",
+            "englishplural": "universities"
+        },
+        {
+            "turkish": "banka",
+            "english": "bank",
+            "turkishsuffix": "bankalar",
+            "englishplural": "banks"
+        },
+        {
+            "turkish": "hastane",
+            "english": "hospital",
+            "turkishsuffix": "hastaneler",
+            "englishplural": "hospitals"
+        },
+        {
+            "turkish": "eczane",
+            "english": "pharmacy",
+            "turkishsuffix": "eczaneler",
+            "englishplural": "pharmacies"
+        },
+        {
+            "turkish": "pazar",
+            "english": "market",
+            "turkishsuffix": "pazarlar",
+            "englishplural": "markets"
+        }
+    ]
+}

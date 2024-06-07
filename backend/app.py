@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 import os
@@ -29,7 +29,7 @@ def generate_unique_prompt(previous_sentences):
                   f"Return the sentence in a JSON format. Also return the Turkish word's plural suffix and the English word in plural. "
                   f"JSON should be in the format: 'turkish': '...', 'english': '...', 'turkishsuffix': '...', 'englishplural': '...'. "
                   f"Provide unique and varied examples each time.")
-    
+
     return prompt
 
 @app.route('/generate_sentence', methods=['POST'])
@@ -39,7 +39,7 @@ def generate_sentence():
     previous_sentences = data.get('previousSentences', [])
     prompt = generate_unique_prompt(previous_sentences)
 
-    response = client.chat.completions.create(
+    response = client.chat_completions.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": "You are a helpful assistant while I am learning Turkish."},
@@ -48,7 +48,7 @@ def generate_sentence():
         temperature=0.7,
         max_tokens=150
     )
-    sentence_str = response.choices[0].message.content.strip()
+    sentence_str = response.choices[0].message['content'].strip()
 
     # Fix the JSON string to use double quotes instead of single quotes
     sentence_str = sentence_str.replace("'", '"')
@@ -57,6 +57,18 @@ def generate_sentence():
     sentence_json = json.loads(sentence_str)
 
     return jsonify(sentence_json)
+
+# function that reads the data from learn_plural_subjects.json file and places them in a global variable
+def read_learn_plural_subjects_data():
+    global words
+    with open(r'backend\data\learn_plural_subjects.json', 'r', encoding='utf-8') as f:
+        words = json.load(f)
+
+@app.route('/get_saved_words', methods=['GET'])
+def get_saved_words():
+    with open(r'backend\data\learn_plural_subjects.json', 'r', encoding='utf-8') as f:
+        words = json.load(f)
+    return jsonify(words)
 
 if __name__ == '__main__':
     app.run(debug=True)
