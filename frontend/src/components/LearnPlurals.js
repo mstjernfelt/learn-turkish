@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Typography, Box, Paper, Grid, Popover, List, ListItem, ListItemText } from '@mui/material';
+import { Container, Button, Typography, Box, Paper, Grid, Popover, List, ListItem, ListItemText, Card, CardContent } from '@mui/material';
 import { Helmet } from 'react-helmet';
 
 const LearnPlurals = () => {
@@ -12,9 +12,9 @@ const LearnPlurals = () => {
   const [learnedWords, setLearnedWords] = useState([]);
 
   useEffect(() => {
-    generateSentence();
     const storedWords = JSON.parse(sessionStorage.getItem('previousSentences')) || [];
     setLearnedWords(storedWords);
+    generateSentence();
   }, []);
 
   const generateSentence = async () => {
@@ -27,11 +27,6 @@ const LearnPlurals = () => {
       setOptionsVisible(true);
       setResult('');
       handleClose(); // Close the hint popover when a new sentence is generated
-
-      // Save the new sentence to session storage
-      previousSentences.push(newSentence);
-      sessionStorage.setItem('previousSentences', JSON.stringify(previousSentences));
-      setLearnedWords(previousSentences); // Update learned words list
     } catch (error) {
       console.error('Error generating sentence:', error);
     }
@@ -39,11 +34,21 @@ const LearnPlurals = () => {
 
   const handleOptionClick = (suffix) => {
     setOptionsVisible(false);
-    if (responseData.turkishsuffix === suffix) {
-      setResult(`Correct! The answer is ${responseData.turkish}${responseData.turkishsuffix} (${responseData.english})`);
-    } else {
-      setResult(`Incorrect! The correct answer is ${responseData.turkish}${responseData.turkishsuffix}`);
-    }
+    const correct = responseData.turkishsuffix === suffix;
+    const resultText = correct
+      ? `Correct! The answer is ${responseData.turkish}${responseData.turkishsuffix} (${responseData.english})`
+      : `Incorrect! The correct answer is ${responseData.turkish}${responseData.turkishsuffix}`;
+    setResult(resultText);
+
+    // Add word to learned words with result and user's answer
+    const newLearnedWord = {
+      ...responseData,
+      correct,
+      userAnswer: suffix,
+    };
+    const updatedLearnedWords = [...learnedWords, newLearnedWord];
+    setLearnedWords(updatedLearnedWords);
+    sessionStorage.setItem('previousSentences', JSON.stringify(updatedLearnedWords));
   };
 
   const handleClick = (event) => {
@@ -149,9 +154,19 @@ const LearnPlurals = () => {
               </Typography>
               <List>
                 {learnedWords.map((word, index) => (
-                  <ListItem key={index}>
-                    <ListItemText primary={`${word.turkish} (${word.english})`} />
-                  </ListItem>
+                  <Card key={index} sx={{ marginBottom: 2, backgroundColor: word.correct ? 'lightgreen' : 'lightcoral' }}>
+                    <CardContent>
+                      <Typography variant="body1" component="p">
+                        {word.turkish} ({word.english})
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        {word.turkish}{word.turkishsuffix} ({word.englishplural})
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Your answer: {word.userAnswer}
+                      </Typography>
+                    </CardContent>
+                  </Card>
                 ))}
               </List>
             </Paper>
