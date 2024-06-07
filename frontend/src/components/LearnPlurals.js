@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Button, Typography, Box, Paper, Grid, Alert } from '@mui/material';
+import { Container, Button, Typography, Box, Paper, Grid, Popover } from '@mui/material';
 import { Helmet } from 'react-helmet';
-import LearnPluralsHint from './LearnPluralsHint';
 
 const LearnPlurals = () => {
   const [sentence, setSentence] = useState('');
   const [result, setResult] = useState('');
   const [optionsVisible, setOptionsVisible] = useState(false);
   const [responseData, setResponseData] = useState({});
-  const [showHint, setShowHint] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     generateSentence();
@@ -22,7 +21,7 @@ const LearnPlurals = () => {
       setSentence(`${response.data.turkish} (${response.data.english})`);
       setOptionsVisible(true);
       setResult('');
-      setShowHint(false);  // Reset hint visibility
+      handleClose(); // Close the hint popover when a new sentence is generated
     } catch (error) {
       console.error('Error generating sentence:', error);
     }
@@ -30,16 +29,23 @@ const LearnPlurals = () => {
 
   const handleOptionClick = (suffix) => {
     setOptionsVisible(false);
-    if (responseData.suffix === suffix) {
+    if (responseData.suffix.includes(suffix)) {
       setResult(`Correct! The answer is ${responseData.turkish}${responseData.suffix} (${responseData.english})`);
     } else {
       setResult(`Incorrect! The correct answer is ${responseData.turkish}${responseData.suffix}`);
     }
   };
 
-  const handleShowHint = () => {
-    setShowHint(!showHint);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
 
   return (
     <Container maxWidth="md">
@@ -58,9 +64,36 @@ const LearnPlurals = () => {
               </Button>
             </Grid>
             <Grid item>
-              <Button variant="contained" color="secondary" onClick={handleShowHint}>
-                {showHint ? 'Hide Hint' : 'Show Hint'}
+              <Button
+                variant="contained"
+                color="secondary"
+                aria-describedby={id}
+                onClick={handleClick}
+              >
+                Hint
               </Button>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <Box p={2}>
+                  <Typography variant="body1">
+                    -a-ı-o-u --- lar
+                    <br />
+                    -e-i-ö-ü --- ler
+                  </Typography>
+                </Box>
+              </Popover>
             </Grid>
           </Grid>
         </Box>
@@ -85,15 +118,6 @@ const LearnPlurals = () => {
               {result}
             </Typography>
           </Box>
-          {showHint && (
-            <Box mt={2}>
-              <Alert severity="info">
-                -a-ı-o-u --- lar
-                <br />
-                -e-i-ö-ü --- ler
-              </Alert>
-            </Box>
-          )}
         </Box>
       </Paper>
       <Paper elevation={3} sx={{ padding: 4, marginTop: 4, width: '100%' }}>
