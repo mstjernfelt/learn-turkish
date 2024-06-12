@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from openai import OpenAI
+import openai
 import os
 import json
 from dotenv import load_dotenv
+import random
+
+from models.OpenAIClient.OpenAIClient import OpenAIClient
 
 app = Flask(__name__, static_folder='../frontend/build', static_url_path='/')
 CORS(app)  # Add this line to enable CORS for all routes
@@ -12,57 +15,48 @@ CORS(app)  # Add this line to enable CORS for all routes
 load_dotenv()
 
 # Initialize OpenAI client with the API key
-client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
-
-def generate_unique_prompt(previous_sentences):
-    used_turkish_subjects = [entry['turkish'] for entry in previous_sentences]
-
-    if used_turkish_subjects:
-        used_subjects_str = ', '.join(used_turkish_subjects)
-        prompt = (f"Generate a Turkish subject and provide its English translation. "
-                  f"Ensure it is not one of the following: {used_subjects_str}. "
-                  f"Return the sentence in a JSON format. Also return the Turkish word's plural suffix and the English word in plural. "
-                  f"JSON should be in the format: 'turkish': '...', 'english': '...', 'turkishsuffix': '...', 'englishplural': '...'. "
-                  f"Provide unique and varied examples each time.")
-    else:
-        prompt = (f"Generate a Turkish subject and provide its English translation. "
-                  f"Return the sentence in a JSON format. Also return the Turkish word's plural suffix and the English word in plural. "
-                  f"JSON should be in the format: 'turkish': '...', 'english': '...', 'turkishsuffix': '...', 'englishplural': '...'. "
-                  f"Provide unique and varied examples each time.")
-
-    return prompt
+#openai_client = OpenAIClient(api_key=os.getenv('OPENAI_API_KEY'))
 
 @app.route('/generate_sentence', methods=['POST'])
 def generate_sentence():
     data = request.json
-    lesson = data['lesson']
     previous_sentences = data.get('previousSentences', [])
-    prompt = generate_unique_prompt(previous_sentences)
+    
+    sentence_str = get_unique_subjects(previous_sentences)
 
-    response = client.chat_completions.create(
-        model="gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant while I am learning Turkish."},
-            {"role": "user", "content": prompt}
-        ],
-        temperature=0.7,
-        max_tokens=150
-    )
-    sentence_str = response.choices[0].message['content'].strip()
+    # get one randomly selected entry from the sentence_str list
+    random_entry = random.choice(sentence_str)
 
-    # Fix the JSON string to use double quotes instead of single quotes
-    sentence_str = sentence_str.replace("'", '"')
+    return jsonify(random_entry)
 
-    # Convert the string to JSON
-    sentence_json = json.loads(sentence_str)
+# Function that uses the OpenAIClient class and updates the learn_plural_subjects.json file with the new data
+def generate_sentence_with_openai():
+    sentence_str = read_learn_plural_subjects_data()
+    
+    prompt = OpenAIClient.generate_unique_prompt(previous_sentences=sentence_str)
+    
+    sentence_str = OpenAIClient.get_response(api_key=os.getenv('OPENAI_API_KEY'))
 
-    return jsonify(sentence_json)
+    with open(r'backend\data\learn_plural_subjects.json', 'w', encoding='utf-8') as f:
+        json.dump(sentence_str, f, ensure_ascii=False, indent=4)
 
-# function that reads the data from learn_plural_subjects.json file and places them in a global variable
+    return sentence_str
+
+# Function that uses read_learn_plural_subjects_data() to get the data and removes elements that are already in the previous_sentences list
+def get_unique_subjects(previous_sentences):
+    sentence_str = read_learn_plural_subjects_data()
+
+    # Remove the elements that are already in the previous_sentences list
+    unique_sentence = [entry for entry in sentence_str if entry['turkish'] not in previous_sentences]
+
+    return unique_sentence
+
+# Function that reads the data from learn_plural_subjects.json file and places them in a global variable
 def read_learn_plural_subjects_data():
-    global words
     with open(r'backend\data\learn_plural_subjects.json', 'r', encoding='utf-8') as f:
-        words = json.load(f)
+        subjects = json.load(f)
+        
+    return subjects
 
 @app.route('/get_saved_words', methods=['GET'])
 def get_saved_words():

@@ -26,6 +26,7 @@ const LearnPlurals = () => {
       const previousSentences = JSON.parse(sessionStorage.getItem('previousSentences')) || [];
       const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/generate_sentence`, { lesson: 'plurals', previousSentences });
       const newSentence = response.data;
+
       setResponseData(newSentence);
       setSentence(`${newSentence.turkish} (${newSentence.english})`);
       setOptionsVisible(true);
@@ -39,10 +40,11 @@ const LearnPlurals = () => {
 
   const handleOptionClick = (suffix) => {
     setOptionsVisible(false);
-    const correct = responseData.turkishsuffix === suffix;
+    const correct = responseData.turkishsuffix === responseData.turkish + suffix;
+
     const resultText = correct
-      ? `Correct! The answer is ${responseData.turkish}${responseData.turkishsuffix} (${responseData.english})`
-      : `Incorrect! The correct answer is ${responseData.turkish}${responseData.turkishsuffix}`;
+      ? `Correct! The answer is ${responseData.turkishsuffix} (${responseData.englishplural})`
+      : `Incorrect! The correct answer is ${responseData.turkishsuffix}`;
 
     // Set the snackbar message and severity
     setSnackbarMessage(resultText);
@@ -193,11 +195,11 @@ const LearnPlurals = () => {
                     return (
                       <Card key={index} sx={{ marginBottom: 2, backgroundColor: word.correct ? 'lightgreen' : 'lightcoral' }}>
                         <CardContent>
-                          <Typography variant="body1" component="p">
-                            {word.turkish} ({word.english})
+                          <Typography variant="h6" component="p">
+                          {word.turkishsuffix} ({word.englishplural})
                           </Typography>
                           <Typography variant="body2" component="p">
-                            {word.turkish}{word.turkishsuffix} ({word.englishplural})
+                          {word.turkish} ({word.english})
                           </Typography>
                           <Typography variant="body2" component="p">
                             Your answer: {word.userAnswer}
