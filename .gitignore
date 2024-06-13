@@ -1,2 +1,4 @@
 data/sentences.json
 temp/*
+.env
+.env
